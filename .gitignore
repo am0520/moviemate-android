@@ -1,0 +1,38 @@
+# IDE
+# ------------------------- -------------------------
+*.iml
+.idea/*
+
+# Keep shared code style
+# -------------------------
+!/.idea/codeStyles
+/.idea/codeStyles/*
+!/.idea/codeStyles/Project.xml
+!/.idea/codeStyles/codeStyleConfig.xml
+
+# Keep project dictionary
+# -------------------------
+!/.idea/dictionaries/
+!/.idea/dictionaries/**
+
+# Screenshots / screen recordings from devices
+# ------------------------- -------------------------
+/captures/
+
+# Build
+# ------------------------- -------------------------
+.gradle/
+build/
+.kotlin/
+
+# Local configuration (SDK path, etc.)
+# ------------------------- -------------------------
+local.properties
+
+# macOS Finder metadata
+# ------------------------- -------------------------
+.DS_Store
+
+# secrets during debugging
+# ------------------------- -------------------------
+secrets.properties
