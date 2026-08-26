@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
@@ -15,11 +16,30 @@ fun MoviesScreen(
 ) {
     val movie = viewModel.movie
 
+    MoviesScreen(
+        movie = movie,
+        modifier = modifier
+    )
+}
+
+@Composable
+internal fun MoviesScreen(
+    movie: String,
+    modifier: Modifier = Modifier
+) {
     Text(
         "$movie test",
         fontSize = 40.sp,
         modifier = modifier
             .fillMaxSize()
             .wrapContentSize()
+    )
+}
+
+@Preview
+@Composable
+private fun MoviesScreenPreview() {
+    MoviesScreen(
+        movie = "Test Movie",
     )
 }
