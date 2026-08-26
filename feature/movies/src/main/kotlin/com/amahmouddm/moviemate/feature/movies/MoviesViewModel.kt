@@ -20,8 +20,10 @@ class MoviesViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
 ) : ViewModel() {
 
-    var movie by mutableStateOf("Loading")
-    val tmdbConfig = TmdbConfig.create(
+    internal var moviesUiState: MoviesUiState by mutableStateOf(MoviesUiState.Loading)
+        private set
+
+    private val tmdbConfig = TmdbConfig.create(
         baseUrl = TMDB_BASE_URL,
         accessToken = TMDB_ACCESS_TOKEN,
     )
@@ -31,11 +33,10 @@ class MoviesViewModel @Inject constructor(
             val movies = moviesRepository.getPopularMovies(
                 tmdbConfig = tmdbConfig,
             )
-            movie = when (movies) {
-                is Outcome.Success -> movies.data.first().title
-                is Outcome.Failure -> "Error"
+            moviesUiState = when (movies) {
+                is Outcome.Success -> MoviesUiState.Success(movies = movies.data)
+                is Outcome.Failure -> MoviesUiState.Error
             }
         }
     }
-
 }

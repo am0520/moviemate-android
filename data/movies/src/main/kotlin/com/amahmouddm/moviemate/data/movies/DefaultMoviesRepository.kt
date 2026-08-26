@@ -15,10 +15,9 @@ internal class DefaultMoviesRepository @Inject constructor(
 
     override suspend fun getPopularMovies(
         tmdbConfig: TmdbConfig,
-        ): Outcome<List<Movie>, DomainError> =
-        withContext(Dispatchers.IO) {
-            remoteDataSource.getPopularMovies(
-                tmdbConfig = tmdbConfig,
-            )
-        }
+    ): Outcome<List<Movie>, DomainError> = withContext(Dispatchers.IO) {
+        remoteDataSource.getPopularMovies(
+            tmdbConfig = tmdbConfig,
+        )
+    }
 }
