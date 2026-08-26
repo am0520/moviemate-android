@@ -16,7 +16,7 @@ fun MoviesScreen(
     val movie = viewModel.movie
 
     Text(
-        movie,
+        "$movie test",
         fontSize = 40.sp,
         modifier = modifier
             .fillMaxSize()
