@@ -1,4 +1,4 @@
-import com.amahmouddm.moviemate.configureJvmTests
+import com.amahmouddm.moviemate.configureKotlinTests
 import com.amahmouddm.moviemate.configureKotlinJvm
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -10,7 +10,7 @@ internal abstract class KotlinJvmConventionPlugin : Plugin<Project> {
             apply(plugin = "org.jetbrains.kotlin.jvm")
 
             configureKotlinJvm()
-            configureJvmTests()
+            configureKotlinTests()
         }
     }
 }

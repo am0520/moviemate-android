@@ -53,4 +53,8 @@ android {
 dependencies {
     implementation(projects.data.movies)
     implementation(libs.androidx.compose.material3)
+
+    testImplementation(libs.mockk)
+    testImplementation(testFixtures(projects.data.movies))
+    testImplementation(projects.core.testing)
 }

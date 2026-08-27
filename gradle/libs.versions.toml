@@ -2,6 +2,7 @@
 kotlin = "2.4.0"
 kotlinxCoroutines = "1.11.0"
 kotlinxSerializationJson = "1.11.0"
+junit = "4.13.2"
 ktor = "3.5.1"
 ksp = "2.3.4"
 hilt = "2.60.1"
@@ -11,6 +12,7 @@ androidxActivity = "1.13.0"
 androidxComposeBom = "2026.05.00"
 androidxLifecycle = "2.11.0"
 androidxHilt = "1.4.0"
+mockk = "1.14.11"
 
 [libraries]
 
@@ -20,7 +22,8 @@ android-gradleApi = { group = "com.android.tools.build", name = "gradle-api", ve
 kotlin-compose-plugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
 # Project dependencies
-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
@@ -41,6 +44,7 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-lifecycle-viewmodelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-hilt-lifecycle-viewmodelCompose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
+mockk = { module = "io.mockk:mockk-jvm", version.ref = "mockk" }
 
 [plugins]
 

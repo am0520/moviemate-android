@@ -1,7 +1,6 @@
 package com.amahmouddm.moviemate.data.movies
 
 import com.amahmouddm.moviemate.core.common.result.Outcome
-import com.amahmouddm.moviemate.data.movies.data.moviesTestData
 import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
 import com.amahmouddm.moviemate.data.movies.model.DomainError
 import com.amahmouddm.moviemate.data.movies.testdoubles.FakeMoviesRemoteDataSource

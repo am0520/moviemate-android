@@ -1,8 +1,8 @@
-package com.amahmouddm.moviemate.data.movies.data
+package com.amahmouddm.moviemate.data.movies
 
 import com.amahmouddm.moviemate.data.movies.model.Movie
 
-internal val moviesTestData = listOf(
+val moviesTestData = listOf(
     Movie(
         id = 1,
         title = "Troy",
