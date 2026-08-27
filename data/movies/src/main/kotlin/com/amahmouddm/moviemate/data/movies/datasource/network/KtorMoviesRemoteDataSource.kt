@@ -3,7 +3,7 @@ package com.amahmouddm.moviemate.data.movies.datasource.network
 import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.core.common.result.mapSuccess
 import com.amahmouddm.moviemate.data.movies.datasource.MoviesRemoteDataSource
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.TmdbConfig
+import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
 import com.amahmouddm.moviemate.data.movies.datasource.network.dto.PopularMoviesResponseDto
 import com.amahmouddm.moviemate.data.movies.datasource.network.mapper.toMovie
 import com.amahmouddm.moviemate.data.movies.datasource.network.result.safeApiCall
@@ -20,12 +20,12 @@ internal class KtorMoviesRemoteDataSource @Inject constructor(
 ) : MoviesRemoteDataSource {
 
     override suspend fun getPopularMovies(
-        tmdbConfig: TmdbConfig,
+        serverConfig: ServerConfig,
     ): Outcome<List<Movie>, DomainError> {
         return safeApiCall {
             httpClient
-                .get("${tmdbConfig.baseUrl}movie/popular") {
-                    bearerAuth(tmdbConfig.accessToken)
+                .get("${serverConfig.baseUrl}movie/popular") {
+                    bearerAuth(serverConfig.accessToken)
                 }
                 .body<PopularMoviesResponseDto>()
         }

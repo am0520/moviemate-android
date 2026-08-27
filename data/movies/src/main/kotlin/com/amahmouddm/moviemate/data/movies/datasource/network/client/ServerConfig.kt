@@ -1,7 +1,7 @@
 package com.amahmouddm.moviemate.data.movies.datasource.network.client
 
 @ConsistentCopyVisibility
-data class TmdbConfig private constructor(
+data class ServerConfig private constructor(
     val baseUrl: String,
     val accessToken: String,
 ) {
@@ -9,8 +9,8 @@ data class TmdbConfig private constructor(
         fun create(
             baseUrl: String,
             accessToken: String,
-        ): TmdbConfig {
-            return TmdbConfig(
+        ): ServerConfig {
+            return ServerConfig(
                 baseUrl = baseUrl.trimEnd('/') + "/",
                 accessToken = accessToken,
             )
