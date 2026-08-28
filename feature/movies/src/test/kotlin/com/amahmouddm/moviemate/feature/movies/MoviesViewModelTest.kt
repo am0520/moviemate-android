@@ -3,8 +3,8 @@ package com.amahmouddm.moviemate.feature.movies
 import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.core.testing.rule.MainDispatcherRule
 import com.amahmouddm.moviemate.data.movies.MoviesRepository
-import com.amahmouddm.moviemate.data.movies.domainErrorTestData
-import com.amahmouddm.moviemate.data.movies.moviesTestData
+import com.amahmouddm.moviemate.data.movies.testdata.domainErrorTestData
+import com.amahmouddm.moviemate.data.movies.testdata.moviesTestData
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

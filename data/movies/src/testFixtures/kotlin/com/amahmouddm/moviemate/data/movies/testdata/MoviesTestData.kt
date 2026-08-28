@@ -1,4 +1,4 @@
-package com.amahmouddm.moviemate.data.movies
+package com.amahmouddm.moviemate.data.movies.testdata
 
 import com.amahmouddm.moviemate.data.movies.model.Movie
 

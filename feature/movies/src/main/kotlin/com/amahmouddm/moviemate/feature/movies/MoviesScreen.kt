@@ -100,7 +100,7 @@ private fun MovieItem(
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(2f / 3f)
-            .background(Color.Green)
+            .background(Color.DarkGray)
             .wrapContentSize()
     )
 }
