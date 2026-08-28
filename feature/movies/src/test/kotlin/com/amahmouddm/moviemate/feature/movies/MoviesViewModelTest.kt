@@ -4,7 +4,7 @@ import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.core.testing.rule.MainDispatcherRule
 import com.amahmouddm.moviemate.data.movies.MoviesRepository
 import com.amahmouddm.moviemate.data.movies.testdata.domainErrorTestData
-import com.amahmouddm.moviemate.data.movies.testdata.moviesTestData
+import com.amahmouddm.moviemate.data.movies.testdata.testMovies
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -40,7 +40,7 @@ class MoviesViewModelTest {
 
     @Test
     fun `when repository returns success state is success`() = runTest {
-        val movies = moviesTestData
+        val movies = testMovies()
 
         coEvery {
             moviesRepository.getPopularMovies(any())

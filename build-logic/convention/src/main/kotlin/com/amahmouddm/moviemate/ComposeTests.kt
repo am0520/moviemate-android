@@ -7,6 +7,6 @@ internal fun Project.configureComposeTests() {
     dependencies {
         "debugImplementation"(libs.findLibrary("androidx-compose-ui-test-manifest").get())
 
-        "androidTestImplementation"(libs.findLibrary("androidx-compose-ui-test").get())
+        "testImplementation"(libs.findLibrary("androidx-compose-ui-test").get())
     }
 }

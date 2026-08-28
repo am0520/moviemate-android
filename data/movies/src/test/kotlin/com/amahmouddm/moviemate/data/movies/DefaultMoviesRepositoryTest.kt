@@ -3,7 +3,7 @@ package com.amahmouddm.moviemate.data.movies
 import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
 import com.amahmouddm.moviemate.data.movies.model.DomainError
-import com.amahmouddm.moviemate.data.movies.testdata.moviesTestData
+import com.amahmouddm.moviemate.data.movies.testdata.testMovies
 import com.amahmouddm.moviemate.data.movies.testdoubles.FakeMoviesRemoteDataSource
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -11,7 +11,7 @@ import kotlin.test.assertEquals
 
 class DefaultMoviesRepositoryTest {
 
-    private val movies = moviesTestData
+    private val movies = testMovies()
 
     private val remoteDataSource = FakeMoviesRemoteDataSource()
 
