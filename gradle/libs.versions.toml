@@ -45,6 +45,8 @@ androidx-lifecycle-viewmodelCompose = { group = "androidx.lifecycle", name = "li
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-hilt-lifecycle-viewmodelCompose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
 mockk = { module = "io.mockk:mockk-jvm", version.ref = "mockk" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
 [plugins]
 
