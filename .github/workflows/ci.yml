@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 on:
   push:
@@ -9,8 +9,20 @@ on:
       - main
 
 jobs:
-  verify:
+  checks:
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Unit tests
+            task: testDebugUnitTest
+          - name: Lint
+            task: lintDebug
+          - name: Build debug APK
+            task: assembleDebug
 
     steps:
       - name: Checkout repository
@@ -25,11 +37,5 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Run unit tests
-        run: ./gradlew test
-
-      - name: Run lint
-        run: ./gradlew lint
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug
+      - name: ${{ matrix.name }}
+        run: ./gradlew ${{ matrix.task }}
