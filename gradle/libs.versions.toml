@@ -15,7 +15,7 @@ androidxHilt = "1.4.0"
 mockk = "1.14.11"
 robolectric = "4.17-beta-4"
 espresso = "3.7.0"
-screenshot = "0.0.1-alpha15"
+screenshot = "0.0.1-alpha16"
 
 [libraries]
 
