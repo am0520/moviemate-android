@@ -15,6 +15,7 @@ androidxHilt = "1.4.0"
 mockk = "1.14.11"
 robolectric = "4.17-beta-4"
 espresso = "3.7.0"
+screenshot = "0.0.1-alpha15"
 
 [libraries]
 
@@ -51,6 +52,7 @@ androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-juni
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 androidx-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot"}
 
 [plugins]
 
@@ -70,3 +72,4 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}

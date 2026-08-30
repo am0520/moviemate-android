@@ -2,6 +2,7 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.moviemate.android.feature)
+    alias(libs.plugins.screenshot)
 }
 
 val secrets = Properties().apply {
@@ -13,6 +14,8 @@ val secrets = Properties().apply {
 
 android {
     namespace = "com.amahmouddm.moviemate.feature.movies"
+
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
     buildFeatures {
         buildConfig = true
@@ -57,4 +60,7 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(testFixtures(projects.data.movies))
     testImplementation(projects.core.testing)
+
+    screenshotTestImplementation(libs.screenshot.validation.api)
+    screenshotTestImplementation(libs.androidx.compose.ui.tooling)
 }
