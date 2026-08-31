@@ -7,33 +7,21 @@ on:
 
 jobs:
   checks:
-    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Unit tests
-            task: testDebugUnitTest
-#          - name: Lint
-#            task: lintDebug
-#          - name: Build debug APK
-#            task: assembleDebug
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup Java
+      - name: Set up JDK
         uses: actions/setup-java@v6
         with:
           distribution: ${{ vars.JAVA_DISTRIBUTION }}
           java-version: ${{ vars.JAVA_VERSION }}
 
-      - name: Setup Gradle
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: ${{ matrix.name }}
-        run: ./gradlew ${{ matrix.task }}
+      - name: Unit tests
+        run: ./gradlew testDebugUnitTest
