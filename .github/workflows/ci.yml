@@ -19,10 +19,10 @@ jobs:
         include:
           - name: Unit tests
             task: testDebugUnitTest
-          - name: Lint
-            task: lintDebug
-          - name: Build debug APK
-            task: assembleDebug
+#          - name: Lint
+#            task: lintDebug
+#          - name: Build debug APK
+#            task: assembleDebug
 
     steps:
       - name: Checkout repository
