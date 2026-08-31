@@ -1,2 +1,1 @@
-[![Tests](https://github.com/am0520/moviemate-android/actions/workflows/small-tests.yml/badge.svg)](https://github.com/am0520/moviemate-android/actions/workflows/small-tests.yml)
-[![Screenshots](https://github.com/am0520/moviemate-android/actions/workflows/validate-screenshots.yml/badge.svg)](https://github.com/am0520/moviemate-android/actions/workflows/validate-screenshots.yml)
+[![CI](https://github.com/am0520/moviemate-android/actions/workflows/ci.yml/badge.svg)](https://github.com/am0520/moviemate-android/actions/workflows/ci.yml)
