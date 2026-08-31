@@ -3,6 +3,9 @@ name: Update Screenshot References
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-screenshots:
     runs-on: ${{ vars.SCREENSHOT_RUNNER }}
@@ -24,20 +27,18 @@ jobs:
       - name: Update screenshot references
         run: ./gradlew updateDebugScreenshotTest
 
-      - name: Find updated references
-        id: references
+      - name: Commit updated references
         shell: bash
         run: |
-          {
-            echo 'files<<EOF'
-            git ls-files --modified --others --exclude-standard -- \
-              ':(glob)**/src/screenshotTestDebug/reference/**'
-            echo EOF
-          } >> "$GITHUB_OUTPUT"
+          git add -- ':(glob)**/src/screenshotTestDebug/reference/**'
 
-      - name: Upload screenshot references
-        uses: actions/upload-artifact@v7
-        with:
-          name: screenshot-references
-          path: ${{ steps.references.outputs.files }}
-          if-no-files-found: error
+          if git diff --cached --quiet; then
+            echo "No screenshot references changed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git commit -m "Update screenshot references"
+          git push
