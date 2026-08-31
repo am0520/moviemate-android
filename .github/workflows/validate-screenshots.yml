@@ -1,0 +1,36 @@
+name: Validate Screenshots
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-screenshots:
+    runs-on: ${{ vars.SCREENSHOT_RUNNER }}
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: ${{ vars.JAVA_DISTRIBUTION }}
+          java-version: ${{ vars.JAVA_VERSION }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Validate screenshots
+        run: ./gradlew validateDebugScreenshotTest
+
+      - name: Upload screenshot reports
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshot-reports
+          path: "**/build/reports/screenshotTest/preview/debug/**"
+          if-no-files-found: warn

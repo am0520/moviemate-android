@@ -1,17 +1,15 @@
-name: ci
+name: Small Tests
 
 on:
   push:
-    branches:
-      - '**'
-  pull_request:
-    branches:
+    branches-ignore:
       - main
 
 jobs:
   checks:
     name: ${{ matrix.name }}
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     strategy:
       fail-fast: false
@@ -31,8 +29,8 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v6
         with:
-          distribution: temurin
-          java-version: '21'
+          distribution: ${{ vars.JAVA_DISTRIBUTION }}
+          java-version: ${{ vars.JAVA_VERSION }}
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
