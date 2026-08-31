@@ -108,7 +108,7 @@ private fun MovieItem(
 @Composable
 private fun Error(modifier: Modifier = Modifier) {
     Text(
-        "Error",
+        "Error2",
         style = MaterialTheme.typography.titleLarge,
         modifier = modifier
             .fillMaxSize()
