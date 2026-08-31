@@ -1,4 +1,5 @@
 import com.amahmouddm.moviemate.configureAndroidCompose
+import com.amahmouddm.moviemate.configureComposeTests
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -12,6 +13,7 @@ internal abstract class AndroidComposeConventionPlugin : Plugin<Project> {
 
             val extension = extensions.getByType<CommonExtension>()
             configureAndroidCompose(extension)
+            configureComposeTests()
         }
     }
 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.data.movies.MoviesRepository
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.TmdbConfig
+import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,8 +20,10 @@ class MoviesViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
 ) : ViewModel() {
 
-    var movie by mutableStateOf("Loading")
-    val tmdbConfig = TmdbConfig.create(
+    internal var moviesUiState: MoviesUiState by mutableStateOf(MoviesUiState.Loading)
+        private set
+
+    private val serverConfig = ServerConfig.create(
         baseUrl = TMDB_BASE_URL,
         accessToken = TMDB_ACCESS_TOKEN,
     )
@@ -29,13 +31,12 @@ class MoviesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val movies = moviesRepository.getPopularMovies(
-                tmdbConfig = tmdbConfig,
+                serverConfig = serverConfig,
             )
-            movie = when (movies) {
-                is Outcome.Success -> movies.data.first().title
-                is Outcome.Failure -> "Error"
+            moviesUiState = when (movies) {
+                is Outcome.Success -> MoviesUiState.Success(movies = movies.data)
+                is Outcome.Failure -> MoviesUiState.Error
             }
         }
     }
-
 }

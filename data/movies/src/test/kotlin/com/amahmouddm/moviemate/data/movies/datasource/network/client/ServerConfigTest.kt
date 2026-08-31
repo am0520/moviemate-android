@@ -3,11 +3,11 @@ package com.amahmouddm.moviemate.data.movies.datasource.network.client
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class TmdbConfigTest {
+class ServerConfigTest {
 
     @Test
     fun `adds trailing slash to base url`() {
-        val config = TmdbConfig.create(
+        val config = ServerConfig.create(
             baseUrl = "https://example.com",
             accessToken = "token",
         )
@@ -20,7 +20,7 @@ class TmdbConfigTest {
 
     @Test
     fun `does not duplicate trailing slash`() {
-        val config = TmdbConfig.create(
+        val config = ServerConfig.create(
             baseUrl = "https://example.com/",
             accessToken = "token",
         )

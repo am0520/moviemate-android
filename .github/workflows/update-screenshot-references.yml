@@ -1,0 +1,43 @@
+name: Update Screenshot References
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-screenshots:
+    runs-on: ${{ vars.SCREENSHOT_RUNNER }}
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: ${{ vars.JAVA_DISTRIBUTION }}
+          java-version: ${{ vars.JAVA_VERSION }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Update screenshot references
+        run: ./gradlew updateDebugScreenshotTest
+
+      - name: Find updated references
+        id: references
+        shell: bash
+        run: |
+          {
+            echo 'files<<EOF'
+            git ls-files --modified --others --exclude-standard -- \
+              ':(glob)**/src/screenshotTestDebug/reference/**'
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Upload screenshot references
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshot-references
+          path: ${{ steps.references.outputs.files }}
+          if-no-files-found: error

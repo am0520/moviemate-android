@@ -1,7 +1,7 @@
 package com.amahmouddm.moviemate.data.movies.datasource.network
 
 import com.amahmouddm.moviemate.core.common.result.Outcome
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.TmdbConfig
+import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
 import com.amahmouddm.moviemate.data.movies.model.DomainError
 import com.amahmouddm.moviemate.data.movies.model.Movie
 import io.ktor.client.HttpClient
@@ -22,7 +22,7 @@ import kotlin.test.assertIs
 
 class KtorMoviesRemoteDataSourceTest {
 
-    private val tmdbConfig = TmdbConfig.create(
+    private val serverConfig = ServerConfig.create(
         baseUrl = "",
         accessToken = "",
     )
@@ -64,7 +64,7 @@ class KtorMoviesRemoteDataSourceTest {
 
             // When
             val result = remoteDataSource.getPopularMovies(
-                tmdbConfig = tmdbConfig,
+                serverConfig = serverConfig,
             )
 
             // Then
@@ -106,7 +106,7 @@ class KtorMoviesRemoteDataSourceTest {
 
             // When
             val result = remoteDataSource.getPopularMovies(
-                tmdbConfig = tmdbConfig,
+                serverConfig = serverConfig,
             )
 
             // Then
@@ -144,7 +144,7 @@ class KtorMoviesRemoteDataSourceTest {
 
             // When
             val result = remoteDataSource.getPopularMovies(
-                tmdbConfig = tmdbConfig,
+                serverConfig = serverConfig,
             )
 
             // Then

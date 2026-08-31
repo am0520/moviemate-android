@@ -38,3 +38,5 @@ include(":core:common")
 include(":data:movies")
 include(":app")
 include(":feature:movies")
+
+include(":core:testing")

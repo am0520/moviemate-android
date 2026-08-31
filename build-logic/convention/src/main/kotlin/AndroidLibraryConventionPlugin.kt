@@ -1,4 +1,5 @@
 import com.amahmouddm.moviemate.configureKotlinAndroid
+import com.amahmouddm.moviemate.configureKotlinTests
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -17,6 +18,8 @@ internal abstract class AndroidLibraryConventionPlugin : Plugin<Project> {
 
                 resourcePrefix = path.removePrefix(":").replace(":", "_").lowercase() + "_"
             }
+
+            configureKotlinTests()
         }
     }
 }

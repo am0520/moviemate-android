@@ -1,16 +1,21 @@
 [versions]
-kotlin = "2.4.0"
+kotlin = "2.4.10"
 kotlinxCoroutines = "1.11.0"
 kotlinxSerializationJson = "1.11.0"
-ktor = "3.5.1"
+junit = "4.13.2"
+ktor = "3.5.2"
 ksp = "2.3.4"
 hilt = "2.60.1"
 androidGradlePlugin = "9.2.0"
 androidxCore = "1.18.0"
 androidxActivity = "1.13.0"
-androidxComposeBom = "2026.05.00"
+androidxComposeBom = "2026.08.00"
 androidxLifecycle = "2.11.0"
 androidxHilt = "1.4.0"
+mockk = "1.14.11"
+robolectric = "4.17-beta-4"
+espresso = "3.7.0"
+screenshot = "0.0.1-alpha16"
 
 [libraries]
 
@@ -20,7 +25,8 @@ android-gradleApi = { group = "com.android.tools.build", name = "gradle-api", ve
 kotlin-compose-plugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-gradle-plugin", version.ref = "kotlin" }
 
 # Project dependencies
-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
@@ -41,6 +47,12 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-lifecycle-viewmodelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 androidx-hilt-lifecycle-viewmodelCompose = { group = "androidx.hilt", name = "hilt-lifecycle-viewmodel-compose", version.ref = "androidxHilt" }
+mockk = { module = "io.mockk:mockk-jvm", version.ref = "mockk" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
+androidx-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot"}
 
 [plugins]
 
@@ -60,3 +72,4 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}

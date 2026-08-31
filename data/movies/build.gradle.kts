@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.moviemate.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.moviemate.hilt)
+    `java-test-fixtures`
 }
 
 dependencies {
@@ -14,6 +15,5 @@ dependencies {
     implementation(libs.ktor.client.contentNegotiation)
     implementation(libs.ktor.serialization.kotlinxJson)
 
-    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.ktor.client.mock)
 }
