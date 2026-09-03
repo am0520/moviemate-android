@@ -8,7 +8,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.amahmouddm.moviemate.data.movies.testdata.testMovie
 import com.amahmouddm.moviemate.data.movies.testdata.testMovies
-import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -36,7 +35,6 @@ class MoviesScreenTest {
                 )
             )
             .assertIsDisplayed()
-            .captureRoboImage()
     }
 
     @Test
