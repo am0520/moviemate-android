@@ -31,12 +31,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "moviemate"
 
-enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
-
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":core:common")
-include(":data:movies")
+
 include(":app")
 include(":feature:movies")
 
+include(":data:movies")
+
 include(":core:testing")
+include(":core:common")

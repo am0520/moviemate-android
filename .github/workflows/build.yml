@@ -1,0 +1,49 @@
+name: Build
+
+run-name: Build • ${{ github.event_name }} • ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ${{ vars.CI_RUNNER }}
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: ${{ vars.JAVA_DISTRIBUTION }}
+          java-version: ${{ vars.JAVA_VERSION }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run checks
+        run: ./gradlew check -Proborazzi.test.verify=true
+
+      - name: Build debug APK
+        run: ./gradlew :app:assembleDebug
+
+      - name: Upload Roborazzi results
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: roborazzi-results
+          path: |
+            **/build/outputs/roborazzi/**
+            **/build/reports/roborazzi/**
+          if-no-files-found: warn
+          retention-days: 7
