@@ -1,8 +1,11 @@
+@file:OptIn(ExperimentalRoborazziApi::class)
+
+import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import java.util.Properties
 
 plugins {
     alias(libs.plugins.moviemate.android.feature)
-    alias(libs.plugins.screenshot)
+    id("io.github.takahirom.roborazzi")
 }
 
 val secrets = Properties().apply {
@@ -15,7 +18,15 @@ val secrets = Properties().apply {
 android {
     namespace = "com.amahmouddm.moviemate.feature.movies"
 
-    experimentalProperties["android.experimental.enableScreenshotTest"] = true
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+            all {
+                it.systemProperties["robolectric.pixelCopyRenderMode"] = "hardware"
+            }
+        }
+    }
 
     buildFeatures {
         buildConfig = true
@@ -53,14 +64,19 @@ android {
     }
 }
 
+roborazzi {
+    outputDir = file("src/test/screenshots")
+    separateOutputDirs = true
+}
+
 dependencies {
-    implementation(projects.data.movies)
+    api(projects.data.movies)
     implementation(libs.androidx.compose.material3)
 
     testImplementation(libs.mockk)
     testImplementation(testFixtures(projects.data.movies))
     testImplementation(projects.core.testing)
 
-    screenshotTestImplementation(libs.screenshot.validation.api)
-    screenshotTestImplementation(libs.androidx.compose.ui.tooling)
+    testImplementation("io.github.takahirom.roborazzi:roborazzi:1.73.0")
+    testImplementation("io.github.takahirom.roborazzi:roborazzi-compose:1.73.0")
 }

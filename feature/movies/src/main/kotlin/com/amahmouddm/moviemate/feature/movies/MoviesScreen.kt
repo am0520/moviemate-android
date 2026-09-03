@@ -24,28 +24,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.amahmouddm.moviemate.data.movies.model.Movie
 
 @Composable
 fun MoviesScreen(
     modifier: Modifier = Modifier,
-//    viewModel: MoviesViewModel = hiltViewModel(),
+    viewModel: MoviesViewModel = hiltViewModel(),
 ) {
-//    val moviesUiState = viewModel.moviesUiState
-    val moviesUiState = MoviesUiState.Success(
-        movies = listOf(
-            Movie(id = 1, title = "Movie 1"),
-            Movie(id = 2, title = "Movie 2 - Additional Title"),
-            Movie(id = 3, title = "Movie 3"),
-            Movie(id = 4, title = "Movie 4 - Additional Title 1 - Additional Title 2"),
-            Movie(
-                id = 5,
-                title = "Movie 5 - This is a very long title to test the layout of the " +
-                        "movie item in the grid. Lorem ipsum dolor sit amet, consectetur " +
-                        "adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore ",
-            ),
-        )
-    )
+    val moviesUiState = viewModel.moviesUiState
+//    val moviesUiState = MoviesUiState.Success(
+//        movies = listOf(
+//            Movie(id = 1, title = "Movie 1"),
+//            Movie(id = 2, title = "Movie 2 - Additional Title"),
+//            Movie(id = 3, title = "Movie 3"),
+//            Movie(id = 4, title = "Movie 4 - Additional Title 1 - Additional Title 2"),
+//            Movie(
+//                id = 5,
+//                title = "Movie 5 - This is a very long title to test the layout of the " +
+//                        "movie item in the grid. Lorem ipsum dolor sit amet, consectetur " +
+//                        "adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore ",
+//            ),
+//        )
+//    )
 
     MoviesScreen(
         moviesUiState = moviesUiState,
@@ -54,7 +55,7 @@ fun MoviesScreen(
 }
 
 @Composable
-internal fun MoviesScreen(
+fun MoviesScreen(
     moviesUiState: MoviesUiState,
     modifier: Modifier = Modifier
 ) {

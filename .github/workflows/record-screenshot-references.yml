@@ -1,0 +1,42 @@
+name: Record Screenshot References
+
+run-name: Record screenshots from ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  record:
+    name: Record Roborazzi screenshots
+    runs-on: ${{ vars.CI_RUNNER }}
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: ${{ vars.JAVA_DISTRIBUTION }}
+          java-version: ${{ vars.JAVA_VERSION }}
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Record screenshots
+        run: ./gradlew recordRoborazziDebug
+
+      - name: Commit screenshots
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "test(screenshot): update reference images"
+          file_pattern: "**/src/test/screenshots/**"
+          disable_globbing: true
