@@ -49,6 +49,8 @@ internal abstract class AndroidComposeConventionPlugin : Plugin<Project> {
             configureComposeTests()
 
             dependencies {
+                "testImplementation"(libs.findLibrary("robolectric").get())
+                "testImplementation"(libs.findLibrary("androidx.espresso").get())
                 "testImplementation"(libs.findLibrary("roborazzi").get())
                 "testImplementation"(libs.findLibrary("roborazzi.compose").get())
             }
