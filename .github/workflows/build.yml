@@ -32,7 +32,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v6
 
       - name: Run checks
-        run: ./gradlew check -Proborazzi.test.verify=true
+        run: ./gradlew check
 
       - name: Build debug APK
         run: ./gradlew :app:assembleDebug

@@ -9,5 +9,7 @@ internal fun Project.configureComposeTests() {
 
         "testImplementation"(platform(libs.findLibrary("androidx-compose-bom").get()))
         "testImplementation"(libs.findLibrary("androidx-compose-ui-test").get())
+        "testImplementation"(libs.findLibrary("robolectric").get())
+        "testImplementation"(libs.findLibrary("androidx.espresso").get())
     }
 }
