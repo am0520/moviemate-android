@@ -25,8 +25,6 @@ class MoviesScreenTest {
 
     @Test
     fun `loading state displays progress indicator`() {
-
-
         composeTestRule.setContent {
             MoviesScreen(
                 moviesUiState = MoviesUiState.Loading,

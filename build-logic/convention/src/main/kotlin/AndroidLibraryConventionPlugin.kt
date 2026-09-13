@@ -14,6 +14,8 @@ internal abstract class AndroidLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
 
+                testOptions.targetSdk = 37
+
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
                 resourcePrefix = path.removePrefix(":").replace(":", "_").lowercase() + "_"
