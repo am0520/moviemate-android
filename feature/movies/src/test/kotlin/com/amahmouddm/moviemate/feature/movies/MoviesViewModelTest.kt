@@ -1,7 +1,7 @@
 package com.amahmouddm.moviemate.feature.movies
 
 import com.amahmouddm.moviemate.core.common.result.Outcome
-import com.amahmouddm.moviemate.core.testing.rule.MainDispatcherRule
+import com.amahmouddm.moviemate.core.testing.jvm.rule.MainDispatcherRule
 import com.amahmouddm.moviemate.data.movies.MoviesRepository
 import com.amahmouddm.moviemate.data.movies.testdata.domainErrorTestData
 import com.amahmouddm.moviemate.data.movies.testdata.testMovies

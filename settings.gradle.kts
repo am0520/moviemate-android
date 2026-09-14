@@ -38,5 +38,6 @@ include(":feature:movies")
 
 include(":data:movies")
 
-include(":core:testing")
+include(":core:testing:jvm")
+include(":core:testing:android")
 include(":core:common")

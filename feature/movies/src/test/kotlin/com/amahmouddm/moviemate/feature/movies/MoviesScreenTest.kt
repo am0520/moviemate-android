@@ -13,9 +13,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.GraphicsMode
 
-//PHONE("phone", "spec:shape=Normal,width=640,height=360,unit=dp,dpi=480")
-//const val PHONE = "spec:width=411dp,height=891dp"
-
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class MoviesScreenTest {
