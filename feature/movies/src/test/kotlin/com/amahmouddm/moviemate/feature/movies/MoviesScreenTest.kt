@@ -5,9 +5,11 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.amahmouddm.moviemate.data.movies.testdata.testMovie
 import com.amahmouddm.moviemate.data.movies.testdata.testMovies
+import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,14 +24,15 @@ class MoviesScreenTest {
 
     @Test
     fun `loading state displays progress indicator`() {
+        composeTestRule.mainClock.autoAdvance = false
+
         composeTestRule.setContent {
             MoviesScreen(
                 moviesUiState = MoviesUiState.Loading,
             )
         }
 
-//        composeTestRule.onRoot().captureRoboImage()
-//        composeTestRule.onRoot().capture
+        composeTestRule.onRoot().captureRoboImage()
 
         composeTestRule
             .onNode(
@@ -48,7 +51,7 @@ class MoviesScreenTest {
             )
         }
 
-//        composeTestRule.onRoot().captureRoboImage()
+        composeTestRule.onRoot().captureRoboImage()
 
         composeTestRule
             .onNodeWithText("Error")
@@ -70,7 +73,7 @@ class MoviesScreenTest {
             )
         }
 
-//        composeTestRule.onRoot().captureRoboImage()
+        composeTestRule.onRoot().captureRoboImage()
 
         composeTestRule
             .onNodeWithText("Movie 1")

@@ -1,3 +1,4 @@
+import com.amahmouddm.moviemate.configureAndroidTests
 import com.amahmouddm.moviemate.configureKotlinAndroid
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
@@ -11,8 +12,9 @@ internal abstract class AndroidApplicationConventionPlugin : Plugin<Project> {
             apply(plugin = "com.android.application")
 
             extensions.configure<ApplicationExtension> {
-                configureKotlinAndroid(this)
                 defaultConfig.targetSdk = 37
+                configureKotlinAndroid(this)
+                configureAndroidTests(this)
             }
         }
     }

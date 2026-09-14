@@ -54,7 +54,6 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 androidx-espresso = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
-roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
 
 [plugins]
 

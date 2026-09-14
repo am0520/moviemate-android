@@ -1,3 +1,4 @@
+import com.amahmouddm.moviemate.configureAndroidTests
 import com.amahmouddm.moviemate.configureKotlinAndroid
 import com.amahmouddm.moviemate.configureKotlinTests
 import com.android.build.api.dsl.LibraryExtension
@@ -14,8 +15,8 @@ internal abstract class AndroidLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
 
+                configureAndroidTests(this)
                 testOptions.targetSdk = 37
-
                 defaultConfig.testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
                 resourcePrefix = path.removePrefix(":").replace(":", "_").lowercase() + "_"
