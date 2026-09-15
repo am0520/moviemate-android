@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Mm">
         <activity
             android:name=".MainActivity"
+            android:configChanges="screenSize|smallestScreenSize|orientation|screenLayout|density|uiMode|colorMode|locale|layoutDirection|fontScale|fontWeightAdjustment|keyboard|keyboardHidden|touchscreen|navigation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
