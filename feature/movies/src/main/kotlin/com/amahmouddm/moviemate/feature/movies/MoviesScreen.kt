@@ -3,9 +3,9 @@ package com.amahmouddm.moviemate.feature.movies
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeContent
@@ -58,18 +58,34 @@ private fun MoviesList(
     movies: List<Movie>,
     modifier: Modifier = Modifier,
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 128.dp),
-        contentPadding = WindowInsets.safeContent.asPaddingValues(),
-        horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(space = 8.dp),
+    BoxWithConstraints(
         modifier = modifier
     ) {
-        items(
-            items = movies,
-            key = { movie -> movie.id },
-        ) { movie ->
-            MovieItem(movie = movie)
+        val contentPadding = WindowInsets.safeContent.asPaddingValues()
+        val availableHeight = maxOf(
+            0.dp,
+            maxHeight -
+                    contentPadding.calculateTopPadding() -
+                    contentPadding.calculateBottomPadding()
+        )
+
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(minSize = 128.dp),
+            contentPadding = contentPadding,
+            horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(space = 8.dp),
+        ) {
+            items(
+                items = movies,
+                key = { movie -> movie.id },
+            ) { movie ->
+                MovieItem(
+                    movie = movie,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightMinOfAspectRatioAndFixed(2f / 3f, availableHeight)
+                )
+            }
         }
     }
 }
@@ -86,8 +102,6 @@ private fun MovieItem(
         maxLines = 3,
         overflow = TextOverflow.Ellipsis,
         modifier = modifier
-            .fillMaxWidth()
-            .aspectRatio(2f / 3f)
             .background(Color.DarkGray)
             .wrapContentSize()
     )
