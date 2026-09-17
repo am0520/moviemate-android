@@ -56,5 +56,5 @@ dependencies {
 
     testImplementation(libs.mockk)
     testImplementation(testFixtures(projects.data.movies))
-    testImplementation(projects.core.testing.jvm)
+    testImplementation(projects.core.testing)
 }

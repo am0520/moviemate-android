@@ -34,16 +34,18 @@ internal fun Project.configureAndroidTests(
                 it.systemProperties["robolectric.pixelCopyRenderMode"] = "hardware"
             }
 
-            sourceSets {
-                named("test") {
-                    resources.directories += rootProject.file("config/robolectric").path
-                }
+        }
+
+        sourceSets {
+            named("test") {
+                resources.directories += rootProject.file("config/robolectric").path
             }
         }
     }
 
     extensions.configure<RoborazziExtension> {
         outputDir.set(layout.projectDirectory.dir("src/test/screenshots"))
+
         @OptIn(ExperimentalRoborazziApi::class)
         separateOutputDirs.set(true)
     }
@@ -55,6 +57,6 @@ internal fun Project.configureAndroidTests(
     dependencies {
         "testImplementation"(libs.findLibrary("robolectric").get())
         "testImplementation"(libs.findLibrary("androidx.espresso").get())
-        "testImplementation"(libs.findLibrary("roborazzi").get())
+        "testImplementation"(project(":core:screenshot-testing"))
     }
 }

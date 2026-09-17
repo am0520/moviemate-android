@@ -1,4 +1,4 @@
-package com.amahmouddm.moviemate.core.testing.jvm.rule
+package com.amahmouddm.moviemate.core.testing.rule
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

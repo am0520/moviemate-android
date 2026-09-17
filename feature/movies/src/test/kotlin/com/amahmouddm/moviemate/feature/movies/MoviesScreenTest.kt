@@ -5,11 +5,10 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onRoot
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.amahmouddm.moviemate.core.screenshottesting.captureScreenshot
 import com.amahmouddm.moviemate.data.movies.testdata.testMovie
 import com.amahmouddm.moviemate.data.movies.testdata.testMovies
-import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +31,11 @@ class MoviesScreenTest {
             )
         }
 
-        composeTestRule.onRoot().captureRoboImage()
+        composeTestRule.captureScreenshot(
+            component = "MoviesScreen",
+            state = "loading",
+            variant = "default",
+        )
 
         composeTestRule
             .onNode(
@@ -40,21 +43,6 @@ class MoviesScreenTest {
                     ProgressBarRangeInfo.Indeterminate
                 )
             )
-            .assertIsDisplayed()
-    }
-
-    @Test
-    fun `error state displays error`() {
-        composeTestRule.setContent {
-            MoviesScreen(
-                moviesUiState = MoviesUiState.Error,
-            )
-        }
-
-        composeTestRule.onRoot().captureRoboImage()
-
-        composeTestRule
-            .onNodeWithText("Error")
             .assertIsDisplayed()
     }
 
@@ -73,7 +61,11 @@ class MoviesScreenTest {
             )
         }
 
-        composeTestRule.onRoot().captureRoboImage()
+        composeTestRule.captureScreenshot(
+            component = "MoviesScreen",
+            state = "success",
+            variant = "default",
+        )
 
         composeTestRule
             .onNodeWithText("Movie 1")
@@ -81,6 +73,25 @@ class MoviesScreenTest {
 
         composeTestRule
             .onNodeWithText("Movie 2")
+            .assertIsDisplayed()
+    }
+
+    @Test
+    fun `error state displays error`() {
+        composeTestRule.setContent {
+            MoviesScreen(
+                moviesUiState = MoviesUiState.Error,
+            )
+        }
+
+        composeTestRule.captureScreenshot(
+            component = "MoviesScreen",
+            state = "error",
+            variant = "default",
+        )
+
+        composeTestRule
+            .onNodeWithText("Error")
             .assertIsDisplayed()
     }
 }
