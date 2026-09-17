@@ -32,9 +32,7 @@ class MoviesScreenTest {
         }
 
         composeTestRule.captureScreenshot(
-            component = "MoviesScreen",
-            state = "loading",
-            variant = "default",
+            categories = listOf("MoviesScreen", "loading"),
         )
 
         composeTestRule
@@ -62,9 +60,7 @@ class MoviesScreenTest {
         }
 
         composeTestRule.captureScreenshot(
-            component = "MoviesScreen",
-            state = "success",
-            variant = "default",
+            categories = listOf("MoviesScreen", "success"),
         )
 
         composeTestRule
@@ -85,9 +81,7 @@ class MoviesScreenTest {
         }
 
         composeTestRule.captureScreenshot(
-            component = "MoviesScreen",
-            state = "error",
-            variant = "default",
+            categories = listOf("MoviesScreen", "error"),
         )
 
         composeTestRule

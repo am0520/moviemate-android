@@ -5,11 +5,24 @@ import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.captureRoboImage
 
 fun ComposeContentTestRule.captureScreenshot(
-    component: String,
-    state: String,
-    variant: String,
+    categories: List<String>,
+    qualifiers: List<String> = emptyList(),
 ) {
+    val fileNameSeparator = "+"
+    val qualifiersSeparator = "-"
+    val fileExtension = ".png"
+
+    val folderPath = categories.joinToString("/")
+    val fileSegments = if (qualifiers.isEmpty()){
+        categories
+    } else{
+        categories + qualifiers.joinToString(qualifiersSeparator)
+    }
+    val fileName = fileSegments.joinToString(fileNameSeparator)
+
+    val filePath = "$folderPath/$fileName$fileExtension"
+
     onRoot().captureRoboImage(
-        filePath = "$component/$state/$component+$state+$variant.png",
+        filePath = filePath,
     )
 }
