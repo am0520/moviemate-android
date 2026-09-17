@@ -42,7 +42,7 @@ fun MoviesScreen(
 }
 
 @Composable
-fun MoviesScreen(
+internal fun MoviesScreen(
     moviesUiState: MoviesUiState,
     modifier: Modifier = Modifier
 ) {

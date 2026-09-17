@@ -51,7 +51,7 @@ android {
 }
 
 dependencies {
-    api(projects.data.movies)
+    implementation(projects.data.movies)
     implementation(libs.androidx.compose.material3)
 
     testImplementation(libs.mockk)
