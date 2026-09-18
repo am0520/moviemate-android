@@ -31,10 +31,6 @@ class MoviesScreenTest {
             )
         }
 
-        composeTestRule.captureScreenshot(
-            categories = listOf("MoviesScreen", "loading"),
-        )
-
         composeTestRule
             .onNode(
                 hasProgressBarRangeInfo(
@@ -42,6 +38,10 @@ class MoviesScreenTest {
                 )
             )
             .assertIsDisplayed()
+
+        composeTestRule.captureScreenshot(
+            categories = listOf("MoviesScreen", "loading"),
+        )
     }
 
     @Test
@@ -59,10 +59,6 @@ class MoviesScreenTest {
             )
         }
 
-        composeTestRule.captureScreenshot(
-            categories = listOf("MoviesScreen", "success"),
-        )
-
         composeTestRule
             .onNodeWithText("Movie 1")
             .assertIsDisplayed()
@@ -70,6 +66,10 @@ class MoviesScreenTest {
         composeTestRule
             .onNodeWithText("Movie 2")
             .assertIsDisplayed()
+
+        composeTestRule.captureScreenshot(
+            categories = listOf("MoviesScreen", "success"),
+        )
     }
 
     @Test
@@ -80,12 +80,12 @@ class MoviesScreenTest {
             )
         }
 
-        composeTestRule.captureScreenshot(
-            categories = listOf("MoviesScreen", "error"),
-        )
-
         composeTestRule
             .onNodeWithText("Error")
             .assertIsDisplayed()
+
+        composeTestRule.captureScreenshot(
+            categories = listOf("MoviesScreen", "error"),
+        )
     }
 }
