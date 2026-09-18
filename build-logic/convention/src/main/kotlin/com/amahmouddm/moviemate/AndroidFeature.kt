@@ -8,9 +8,11 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.invoke
 
-internal fun Project.configureAndroidTests(
+internal fun Project.configureAndroidFeature(
     commonExtension: CommonExtension,
 ) {
+    pluginManager.apply("moviemate.android.compose")
+    pluginManager.apply("moviemate.hilt")
     pluginManager.apply("io.github.takahirom.roborazzi")
 
     commonExtension.apply {

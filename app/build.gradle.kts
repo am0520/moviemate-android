@@ -1,7 +1,5 @@
 plugins {
     alias(libs.plugins.moviemate.android.application)
-    alias(libs.plugins.moviemate.android.compose)
-    alias(libs.plugins.moviemate.hilt)
 }
 
 android {
