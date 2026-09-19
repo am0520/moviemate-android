@@ -1,7 +1,5 @@
-package com.amahmouddm.moviemate.data.movies.datasource.network.result
+package com.amahmouddm.moviemate.core.common.result
 
-import com.amahmouddm.moviemate.core.common.result.Outcome
-import com.amahmouddm.moviemate.data.movies.model.DomainError
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -10,7 +8,7 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertIs
 import kotlin.test.assertSame
 
-class SafeApiCallTest {
+class SafeCallTest {
 
     @Test
     fun `returns success when call succeeds`() = runTest {
@@ -18,7 +16,9 @@ class SafeApiCallTest {
         val expected = "Hello"
 
         // When
-        val result = safeApiCall {
+        val result = safeCall(
+            mapError = { "" }
+        ) {
             expected
         }
 
@@ -35,12 +35,14 @@ class SafeApiCallTest {
         val exception = IllegalStateException()
 
         // When
-        val result = safeApiCall<String> {
+        val result = safeCall<String, String>(
+            mapError = { "" }
+        ) {
             throw exception
         }
 
         // Then
-        assertIs<Outcome.Failure<DomainError>>(
+        assertIs<Outcome.Failure<String>>(
             value = result,
         )
     }
@@ -52,7 +54,9 @@ class SafeApiCallTest {
 
         // When
         val result = assertFailsWith<CancellationException> {
-            safeApiCall<String> {
+            safeCall<String, String>(
+                mapError = { "" }
+            ) {
                 throw exception
             }
         }

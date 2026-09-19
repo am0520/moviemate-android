@@ -2,10 +2,11 @@ package com.amahmouddm.moviemate.data.movies.datasource.network
 
 import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.core.common.result.mapSuccess
+import com.amahmouddm.moviemate.core.common.result.safeCall
 import com.amahmouddm.moviemate.data.movies.datasource.MoviesRemoteDataSource
 import com.amahmouddm.moviemate.data.movies.datasource.network.dto.PopularMoviesResponseDto
+import com.amahmouddm.moviemate.data.movies.datasource.network.mapper.toDomainError
 import com.amahmouddm.moviemate.data.movies.datasource.network.mapper.toMovie
-import com.amahmouddm.moviemate.data.movies.datasource.network.result.safeApiCall
 import com.amahmouddm.moviemate.data.movies.model.DomainError
 import com.amahmouddm.moviemate.data.movies.model.Movie
 import io.ktor.client.HttpClient
@@ -18,7 +19,9 @@ internal class KtorMoviesRemoteDataSource @Inject constructor(
 ) : MoviesRemoteDataSource {
 
     override suspend fun getPopularMovies(): Outcome<List<Movie>, DomainError> {
-        return safeApiCall {
+        return safeCall(
+            mapError = { it.toDomainError() }
+        ) {
             httpClient
                 .get("movie/popular")
                 .body<PopularMoviesResponseDto>()
