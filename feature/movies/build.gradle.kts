@@ -57,4 +57,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(testFixtures(projects.data.movies))
     testImplementation(projects.core.testing)
+    testImplementation(platform(libs.ktor.bom))
+    testImplementation(libs.ktor.client.mock)
 }
