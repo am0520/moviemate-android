@@ -144,8 +144,8 @@ class KtorMoviesRemoteDataSourceTest {
         engine: MockEngine,
     ): HttpClient = HttpClient(engine) {
         val serverConfig = ServerConfig.create(
-            baseUrl = "",
-            accessToken = "",
+            baseUrl = "https://example.com",
+            accessToken = "test-access-token",
         )
 
         configureNetworkClient(serverConfig = serverConfig)
