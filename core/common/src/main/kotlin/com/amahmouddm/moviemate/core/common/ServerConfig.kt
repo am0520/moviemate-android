@@ -1,4 +1,4 @@
-package com.amahmouddm.moviemate.data.movies.datasource.network.client
+package com.amahmouddm.moviemate.core.common
 
 @ConsistentCopyVisibility
 data class ServerConfig private constructor(

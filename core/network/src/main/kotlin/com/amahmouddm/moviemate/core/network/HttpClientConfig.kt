@@ -1,15 +1,20 @@
-package com.amahmouddm.moviemate.data.movies.datasource.network.client
+package com.amahmouddm.moviemate.core.network
 
+import com.amahmouddm.moviemate.core.common.ServerConfig
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.accept
+import io.ktor.client.request.header
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-internal fun HttpClientConfig<*>.configureNetworkClient() {
+fun HttpClientConfig<*>.configureNetworkClient(
+    serverConfig: ServerConfig,
+) {
     expectSuccess = true
 
     install(ContentNegotiation) {
@@ -28,6 +33,8 @@ internal fun HttpClientConfig<*>.configureNetworkClient() {
     }
 
     defaultRequest {
+        url(serverConfig.baseUrl)
+        header(HttpHeaders.Authorization, "Bearer ${serverConfig.accessToken}")
         accept(ContentType.Application.Json)
     }
 }

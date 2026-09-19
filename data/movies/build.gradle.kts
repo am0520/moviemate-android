@@ -8,12 +8,13 @@ plugins {
 dependencies {
     api(projects.core.common)
 
-    implementation(libs.kotlinx.serialization.json)
+    implementation(projects.core.network)
     implementation(platform(libs.ktor.bom))
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.contentNegotiation)
     implementation(libs.ktor.serialization.kotlinxJson)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.ktor.client.mock)
 }

@@ -1,6 +1,7 @@
 package com.amahmouddm.moviemate.data.movies.di
 
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.configureNetworkClient
+import com.amahmouddm.moviemate.core.common.ServerConfig
+import com.amahmouddm.moviemate.core.network.configureNetworkClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,9 +15,13 @@ import javax.inject.Singleton
 internal object NetworkClientModule {
     @Provides
     @Singleton
-    fun provideTmdbNetworkClient(): HttpClient {
+    fun provideNetworkClient(
+        serverConfig: ServerConfig,
+    ): HttpClient {
         return HttpClient(OkHttp) {
-            configureNetworkClient()
+            configureNetworkClient(
+                serverConfig = serverConfig,
+            )
         }
     }
 }
