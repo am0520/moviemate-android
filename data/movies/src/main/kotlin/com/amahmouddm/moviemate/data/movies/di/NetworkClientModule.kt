@@ -1,11 +1,12 @@
 package com.amahmouddm.moviemate.data.movies.di
 
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.NetworkClientFactory
+import com.amahmouddm.moviemate.data.movies.datasource.network.client.configureNetworkClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import javax.inject.Singleton
 
 @Module
@@ -14,6 +15,8 @@ internal object NetworkClientModule {
     @Provides
     @Singleton
     fun provideTmdbNetworkClient(): HttpClient {
-        return NetworkClientFactory.create()
+        return HttpClient(OkHttp) {
+            configureNetworkClient()
+        }
     }
 }
