@@ -3,7 +3,7 @@ package com.amahmouddm.moviemate.data.movies.datasource.network.dto
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class PopularMoviesResponseDto(
+internal data class MoviesResponseDto(
     val results: List<MovieDto>,
 )
 

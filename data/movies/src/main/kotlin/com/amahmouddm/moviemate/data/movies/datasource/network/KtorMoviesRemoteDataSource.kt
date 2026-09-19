@@ -4,7 +4,7 @@ import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.core.common.result.mapSuccess
 import com.amahmouddm.moviemate.core.common.result.safeCall
 import com.amahmouddm.moviemate.data.movies.datasource.MoviesRemoteDataSource
-import com.amahmouddm.moviemate.data.movies.datasource.network.dto.PopularMoviesResponseDto
+import com.amahmouddm.moviemate.data.movies.datasource.network.dto.MoviesResponseDto
 import com.amahmouddm.moviemate.data.movies.datasource.network.mapper.toDomainError
 import com.amahmouddm.moviemate.data.movies.datasource.network.mapper.toMovie
 import com.amahmouddm.moviemate.data.movies.model.DomainError
@@ -24,7 +24,7 @@ internal class KtorMoviesRemoteDataSource @Inject constructor(
         ) {
             httpClient
                 .get("movie/popular")
-                .body<PopularMoviesResponseDto>()
+                .body<MoviesResponseDto>()
         }
             .mapSuccess { data ->
                 data
