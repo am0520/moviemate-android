@@ -8,6 +8,11 @@ import io.ktor.client.engine.mock.MockRequestHandler
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/**
+ * Test HTTP engine that replaces the production engine through Hilt.
+ *
+ * Use this when the HTTP engine is provided by Hilt.
+ */
 @Singleton
 class TestNetworkEngine @Inject constructor() :
     HttpClientEngineFactory<MockEngineConfig> {
@@ -25,6 +30,9 @@ class TestNetworkEngine @Inject constructor() :
         return engine
     }
 
+    /**
+     * Enqueues a handler for the next request.
+     */
     fun enqueue(handler: MockRequestHandler) {
         engine.enqueue(handler)
     }
