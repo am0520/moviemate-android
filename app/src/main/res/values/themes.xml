@@ -1,4 +1,9 @@
 <resources>
 
-    <style name="Theme.Mm" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="NightAdjusted.Theme.Mm" parent="@android:style/Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.Mm" parent="@style/NightAdjusted.Theme.Mm">
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+
 </resources>

@@ -42,7 +42,7 @@ class KtorMoviesRemoteDataSourceTest {
                         }
                     ]
                 }
-            """.trimIndent(),
+                """.trimIndent(),
                 status = HttpStatusCode.OK,
                 headers = headersOf(
                     HttpHeaders.ContentType,
@@ -118,7 +118,7 @@ class KtorMoviesRemoteDataSourceTest {
                         }
                     ]
                 }
-            """.trimIndent(),
+                """.trimIndent(),
                 status = HttpStatusCode.OK,
                 headers = headersOf(
                     HttpHeaders.ContentType,

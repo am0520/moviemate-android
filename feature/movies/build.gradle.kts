@@ -57,6 +57,7 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(testFixtures(projects.data.movies))
     testImplementation(projects.core.testing)
-    testImplementation(projects.core.dataTest)
+    testImplementation(projects.core.networkTest)
+    testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.compiler)
 }

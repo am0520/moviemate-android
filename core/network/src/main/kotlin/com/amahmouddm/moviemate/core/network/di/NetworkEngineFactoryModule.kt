@@ -1,4 +1,4 @@
-package com.amahmouddm.moviemate.data.movies.di
+package com.amahmouddm.moviemate.core.network.di
 
 import dagger.Module
 import dagger.Provides

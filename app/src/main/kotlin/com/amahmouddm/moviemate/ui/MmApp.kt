@@ -1,5 +1,6 @@
 package com.amahmouddm.moviemate.ui
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.amahmouddm.moviemate.feature.movies.MoviesScreen
@@ -10,5 +11,6 @@ internal fun MmApp(
 ) {
     MoviesScreen(
         modifier = modifier
+            .fillMaxSize()
     )
 }

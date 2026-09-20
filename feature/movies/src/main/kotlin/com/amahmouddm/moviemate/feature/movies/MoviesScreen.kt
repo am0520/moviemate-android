@@ -47,9 +47,13 @@ internal fun MoviesScreen(
     modifier: Modifier = Modifier
 ) {
     when (moviesUiState) {
-        is MoviesUiState.Success -> MoviesList(movies = moviesUiState.movies, modifier = modifier)
-        is MoviesUiState.Error -> Error(modifier = modifier)
-        is MoviesUiState.Loading -> Loading(modifier = modifier)
+        is MoviesUiState.Success -> {
+            MoviesList(movies = moviesUiState.movies, modifier = modifier.fillMaxSize())
+        }
+
+        is MoviesUiState.Error -> Error(modifier = modifier.fillMaxSize())
+
+        is MoviesUiState.Loading -> Loading(modifier = modifier.fillMaxSize())
     }
 }
 
@@ -113,7 +117,6 @@ private fun Error(modifier: Modifier = Modifier) {
         "Error",
         style = MaterialTheme.typography.titleLarge,
         modifier = modifier
-            .fillMaxSize()
             .wrapContentSize()
     )
 }
@@ -122,7 +125,7 @@ private fun Error(modifier: Modifier = Modifier) {
 private fun Loading(modifier: Modifier = Modifier) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
         CircularProgressIndicator()
     }

@@ -1,4 +1,4 @@
-package com.amahmouddm.moviemate.data.movies.di
+package com.amahmouddm.moviemate.core.network.di
 
 import com.amahmouddm.moviemate.core.common.ServerConfig
 import com.amahmouddm.moviemate.core.network.configureNetworkClient
