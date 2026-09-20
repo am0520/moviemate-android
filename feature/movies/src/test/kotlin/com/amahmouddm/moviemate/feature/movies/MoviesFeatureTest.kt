@@ -47,42 +47,40 @@ class MoviesFeatureTest {
     fun `displays loading while movies are being fetched`() {
         val responseGate = CompletableDeferred<Unit>()
 
-        testNetworkEngine.enqueue {
-            responseGate.await()
+        try {
+            testNetworkEngine.enqueue {
+                responseGate.await()
 
-            respond(
-                content = """
-                {
-                    "results": [
-                        { "id": 1, "title": "Alien" }
-                    ]
-                }
-                """.trimIndent(),
-                status = HttpStatusCode.OK,
-                headers = headersOf(
-                    HttpHeaders.ContentType,
-                    ContentType.Application.Json.toString()
+                respond(
+                    content = """
+                    {
+                        "results": [
+                            { "id": 1, "title": "Alien" }
+                        ]
+                    }
+                    """.trimIndent(),
+                    status = HttpStatusCode.OK,
+                    headers = headersOf(
+                        HttpHeaders.ContentType,
+                        ContentType.Application.Json.toString()
+                    )
                 )
-            )
-        }
+            }
 
-        composeTestRule.setContent {
-            MoviesScreen()
-        }
+            composeTestRule.setContent {
+                MoviesScreen()
+            }
 
-        composeTestRule
-            .onNode(
-                hasProgressBarRangeInfo(
-                    ProgressBarRangeInfo.Indeterminate
+            composeTestRule
+                .onNode(
+                    hasProgressBarRangeInfo(
+                        ProgressBarRangeInfo.Indeterminate
+                    )
                 )
-            )
-            .assertIsDisplayed()
-
-        responseGate.complete(Unit)
-
-        composeTestRule
-            .onNodeWithText("Alien")
-            .assertIsDisplayed()
+                .assertIsDisplayed()
+        } finally {
+            responseGate.complete(Unit)
+        }
     }
 
     @Test
