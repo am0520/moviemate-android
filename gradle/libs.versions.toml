@@ -13,7 +13,7 @@ androidxComposeBom = "2026.08.00"
 androidxLifecycle = "2.11.0"
 androidxHilt = "1.4.0"
 mockk = "1.14.11"
-robolectric = "4.17-beta-4"
+robolectric = "4.17"
 espresso = "3.7.0"
 roborazzi = "1.74.0"
 
@@ -39,6 +39,7 @@ ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock" }
 hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }

@@ -1,54 +1,71 @@
 package com.amahmouddm.moviemate.feature.movies
-//
-//import androidx.compose.ui.test.junit4.v2.createComposeRule
-//import androidx.test.ext.junit.runners.AndroidJUnit4
-//import io.ktor.client.HttpClient
-//import io.ktor.client.engine.mock.MockEngine
-//import io.ktor.client.engine.mock.respond
-//import io.ktor.http.ContentType
-//import io.ktor.http.HttpHeaders
-//import io.ktor.http.HttpStatusCode
-//import io.ktor.http.headersOf
-//import org.junit.Rule
-//import org.junit.Test
-//import org.junit.runner.RunWith
-//
-//@RunWith(AndroidJUnit4::class)
-//class MoviesFeatureTest {
-//
-//    @get:Rule
-//    val composeTestRule = createComposeRule()
-//
-//    private val httpClient = HttpClient(MockEngine) {
-//        engine {
-//            addHandler {
-//                respond(
-//                    content = """
-//                        {
-//                          "results": [
-//                            {
-//                              "id": 1,
-//                              "title": "Test Movie"
-//                            }
-//                          ]
-//                        }
-//                    """.trimIndent(),
-//                    status = HttpStatusCode.OK,
-//                    headers = headersOf(
-//                        HttpHeaders.ContentType,
-//                        ContentType.Application.Json.toString()
-//                    )
-//                )
-//            }
-//        }
-//    }
-//
-//    @Test
-//    fun `loading state displays progress indicator`() {
-//        composeTestRule.setContent {
-//            MoviesScreen(
-//                viewModel =
-//            )
-//        }
-//    }
-//}
+
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.amahmouddm.moviemate.core.datatest.FakeServer
+import com.amahmouddm.moviemate.core.screenshottesting.captureScreenshot
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import dagger.hilt.android.testing.HiltTestApplication
+import org.junit.Before
+import org.junit.Rule
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
+import javax.inject.Inject
+import kotlin.test.Test
+
+@HiltAndroidTest
+@Config(application = HiltTestApplication::class)
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+class MoviesFeatureTest {
+
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    val composeTestRule =
+        createAndroidComposeRule<HiltTestActivity>()
+
+    @Inject
+    lateinit var fakeServer: FakeServer
+
+    @Before
+    fun setup() {
+        hiltRule.inject()
+    }
+
+    @Test
+    fun displaysMoviesReturnedByServer() {
+        fakeServer.enqueueResponse(
+            body = """
+                {
+                    "results": [
+                        { "id": 1, "title": "Alien" },
+                        { "id": 2, "title": "Arrival" }
+                    ]
+                }
+            """.trimIndent()
+        )
+
+        composeTestRule.setContent {
+            MoviesScreen()
+        }
+
+        composeTestRule
+            .onNodeWithText("Alien")
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithText("Arrival")
+            .assertIsDisplayed()
+
+        composeTestRule.captureScreenshot(
+            categories = listOf("MoviesFeature", "success"),
+        )
+    }
+
+}

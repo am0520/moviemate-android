@@ -43,3 +43,5 @@ include(":core:screenshot-testing")
 include(":core:common")
 
 include(":core:network")
+
+include(":core:data-test")
