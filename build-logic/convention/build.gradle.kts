@@ -21,6 +21,7 @@ dependencies {
     compileOnly(libs.ksp.plugin)
     compileOnly(libs.android.gradleApi)
     compileOnly(libs.kotlin.compose.plugin)
+    compileOnly(libs.roborazzi.plugin)
 }
 
 tasks {

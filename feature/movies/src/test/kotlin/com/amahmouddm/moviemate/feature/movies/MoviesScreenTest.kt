@@ -6,6 +6,7 @@ import androidx.compose.ui.test.hasProgressBarRangeInfo
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.amahmouddm.moviemate.core.screenshottesting.captureScreenshot
 import com.amahmouddm.moviemate.data.movies.testdata.testMovie
 import com.amahmouddm.moviemate.data.movies.testdata.testMovies
 import org.junit.Rule
@@ -22,6 +23,8 @@ class MoviesScreenTest {
 
     @Test
     fun `loading state displays progress indicator`() {
+        composeTestRule.mainClock.autoAdvance = false
+
         composeTestRule.setContent {
             MoviesScreen(
                 moviesUiState = MoviesUiState.Loading,
@@ -35,23 +38,14 @@ class MoviesScreenTest {
                 )
             )
             .assertIsDisplayed()
+
+        composeTestRule.captureScreenshot(
+            categories = listOf("MoviesScreen", "loading"),
+        )
     }
 
     @Test
-    fun `error state displays error`() {
-        composeTestRule.setContent {
-            MoviesScreen(
-                moviesUiState = MoviesUiState.Error,
-            )
-        }
-
-        composeTestRule
-            .onNodeWithText("Error")
-            .assertIsDisplayed()
-    }
-
-    @Test
-    fun `success state displays movies`() {
+    fun `success state displays movies titles`() {
         val movies = testMovies(
             testMovie(id = 1, title = "Movie 1"),
             testMovie(id = 2, title = "Movie 2"),
@@ -72,5 +66,26 @@ class MoviesScreenTest {
         composeTestRule
             .onNodeWithText("Movie 2")
             .assertIsDisplayed()
+
+        composeTestRule.captureScreenshot(
+            categories = listOf("MoviesScreen", "success"),
+        )
+    }
+
+    @Test
+    fun `error state displays error`() {
+        composeTestRule.setContent {
+            MoviesScreen(
+                moviesUiState = MoviesUiState.Error,
+            )
+        }
+
+        composeTestRule
+            .onNodeWithText("Error")
+            .assertIsDisplayed()
+
+        composeTestRule.captureScreenshot(
+            categories = listOf("MoviesScreen", "error"),
+        )
     }
 }

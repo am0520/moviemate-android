@@ -3,9 +3,9 @@ package com.amahmouddm.moviemate.feature.movies
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeContent
@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -33,20 +34,6 @@ fun MoviesScreen(
     viewModel: MoviesViewModel = hiltViewModel(),
 ) {
     val moviesUiState = viewModel.moviesUiState
-//    val moviesUiState = MoviesUiState.Success(
-//        movies = listOf(
-//            Movie(id = 1, title = "Movie 1"),
-//            Movie(id = 2, title = "Movie 2 - Additional Title"),
-//            Movie(id = 3, title = "Movie 3"),
-//            Movie(id = 4, title = "Movie 4 - Additional Title 1 - Additional Title 2"),
-//            Movie(
-//                id = 5,
-//                title = "Movie 5 - This is a very long title to test the layout of the " +
-//                        "movie item in the grid. Lorem ipsum dolor sit amet, consectetur " +
-//                        "adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore ",
-//            ),
-//        )
-//    )
 
     MoviesScreen(
         moviesUiState = moviesUiState,
@@ -55,14 +42,18 @@ fun MoviesScreen(
 }
 
 @Composable
-fun MoviesScreen(
+internal fun MoviesScreen(
     moviesUiState: MoviesUiState,
     modifier: Modifier = Modifier
 ) {
     when (moviesUiState) {
-        is MoviesUiState.Success -> MoviesList(movies = moviesUiState.movies, modifier = modifier)
-        is MoviesUiState.Error -> Error(modifier = modifier)
-        is MoviesUiState.Loading -> Loading(modifier = modifier)
+        is MoviesUiState.Success -> {
+            MoviesList(movies = moviesUiState.movies, modifier = modifier.fillMaxSize())
+        }
+
+        is MoviesUiState.Error -> Error(modifier = modifier.fillMaxSize())
+
+        is MoviesUiState.Loading -> Loading(modifier = modifier.fillMaxSize())
     }
 }
 
@@ -71,18 +62,34 @@ private fun MoviesList(
     movies: List<Movie>,
     modifier: Modifier = Modifier,
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 128.dp),
-        contentPadding = WindowInsets.safeContent.asPaddingValues(),
-        horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(space = 8.dp),
+    BoxWithConstraints(
         modifier = modifier
     ) {
-        items(
-            items = movies,
-            key = { movie -> movie.id },
-        ) { movie ->
-            MovieItem(movie = movie)
+        val contentPadding = WindowInsets.safeContent.asPaddingValues()
+        val availableHeight = maxOf(
+            0.dp,
+            maxHeight -
+                    contentPadding.calculateTopPadding() -
+                    contentPadding.calculateBottomPadding()
+        )
+
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(minSize = 128.dp),
+            contentPadding = contentPadding,
+            horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(space = 8.dp),
+        ) {
+            items(
+                items = movies,
+                key = { movie -> movie.id },
+            ) { movie ->
+                MovieItem(
+                    movie = movie,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightMinOfAspectRatioAndFixed(2f / 3f, availableHeight)
+                )
+            }
         }
     }
 }
@@ -99,8 +106,6 @@ private fun MovieItem(
         maxLines = 3,
         overflow = TextOverflow.Ellipsis,
         modifier = modifier
-            .fillMaxWidth()
-            .aspectRatio(2f / 3f)
             .background(Color.DarkGray)
             .wrapContentSize()
     )
@@ -112,7 +117,6 @@ private fun Error(modifier: Modifier = Modifier) {
         "Error",
         style = MaterialTheme.typography.titleLarge,
         modifier = modifier
-            .fillMaxSize()
             .wrapContentSize()
     )
 }
@@ -121,13 +125,13 @@ private fun Error(modifier: Modifier = Modifier) {
 private fun Loading(modifier: Modifier = Modifier) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
         CircularProgressIndicator()
     }
 }
 
-@Preview
+@Preview(device = Devices.PHONE)
 @Composable
 private fun MoviesScreenPreview() {
     val moviesUiState = MoviesUiState.Success(

@@ -1,7 +1,6 @@
 package com.amahmouddm.moviemate.data.movies
 
 import com.amahmouddm.moviemate.core.common.result.Outcome
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
 import com.amahmouddm.moviemate.data.movies.model.DomainError
 import com.amahmouddm.moviemate.data.movies.testdata.testMovies
 import com.amahmouddm.moviemate.data.movies.testdoubles.FakeMoviesRemoteDataSource
@@ -19,19 +18,13 @@ class DefaultMoviesRepositoryTest {
         remoteDataSource = remoteDataSource,
     )
 
-    private val serverConfig = ServerConfig.create(
-        baseUrl = "",
-        accessToken = "",
-    )
-
     @Test
     fun `returns movies when remote data source succeeds`() = runTest {
         // Given
         remoteDataSource.result = Outcome.Success(movies)
 
         // When
-        val result =
-            repository.getPopularMovies(serverConfig = serverConfig)
+        val result = repository.getPopularMovies()
 
         // Then
         assertEquals(
@@ -46,8 +39,7 @@ class DefaultMoviesRepositoryTest {
         remoteDataSource.result = Outcome.Failure(DomainError.CONNECTION_FAILED)
 
         // When
-        val result =
-            repository.getPopularMovies(serverConfig = serverConfig)
+        val result = repository.getPopularMovies()
 
         // Then
         assertEquals(

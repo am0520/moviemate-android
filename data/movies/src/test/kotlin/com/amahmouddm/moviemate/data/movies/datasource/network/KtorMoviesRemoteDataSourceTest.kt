@@ -1,31 +1,23 @@
 package com.amahmouddm.moviemate.data.movies.datasource.network
 
+import com.amahmouddm.moviemate.core.common.ServerConfig
 import com.amahmouddm.moviemate.core.common.result.Outcome
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
+import com.amahmouddm.moviemate.core.network.configureNetworkClient
 import com.amahmouddm.moviemate.data.movies.model.DomainError
 import com.amahmouddm.moviemate.data.movies.model.Movie
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
-import io.ktor.client.plugins.DefaultRequest
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
-import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 class KtorMoviesRemoteDataSourceTest {
-
-    private val serverConfig = ServerConfig.create(
-        baseUrl = "",
-        accessToken = "",
-    )
 
     @Test
     fun `returns popular movies when request succeeds`() = runTest {
@@ -50,7 +42,7 @@ class KtorMoviesRemoteDataSourceTest {
                         }
                     ]
                 }
-            """.trimIndent(),
+                """.trimIndent(),
                 status = HttpStatusCode.OK,
                 headers = headersOf(
                     HttpHeaders.ContentType,
@@ -63,9 +55,7 @@ class KtorMoviesRemoteDataSourceTest {
             val remoteDataSource = KtorMoviesRemoteDataSource(httpClient = client)
 
             // When
-            val result = remoteDataSource.getPopularMovies(
-                serverConfig = serverConfig,
-            )
+            val result = remoteDataSource.getPopularMovies()
 
             // Then
             assertEquals(
@@ -105,9 +95,7 @@ class KtorMoviesRemoteDataSourceTest {
             val remoteDataSource = KtorMoviesRemoteDataSource(httpClient = client)
 
             // When
-            val result = remoteDataSource.getPopularMovies(
-                serverConfig = serverConfig,
-            )
+            val result = remoteDataSource.getPopularMovies()
 
             // Then
             assertIs<Outcome.Failure<DomainError>>(
@@ -130,7 +118,7 @@ class KtorMoviesRemoteDataSourceTest {
                         }
                     ]
                 }
-            """.trimIndent(),
+                """.trimIndent(),
                 status = HttpStatusCode.OK,
                 headers = headersOf(
                     HttpHeaders.ContentType,
@@ -143,9 +131,7 @@ class KtorMoviesRemoteDataSourceTest {
             val remoteDataSource = KtorMoviesRemoteDataSource(httpClient = client)
 
             // When
-            val result = remoteDataSource.getPopularMovies(
-                serverConfig = serverConfig,
-            )
+            val result = remoteDataSource.getPopularMovies()
 
             // Then
             assertIs<Outcome.Failure<DomainError>>(
@@ -156,22 +142,12 @@ class KtorMoviesRemoteDataSourceTest {
 
     private fun createTestHttpClient(
         engine: MockEngine,
-    ): HttpClient {
-        return HttpClient(engine) {
-            expectSuccess = true
+    ): HttpClient = HttpClient(engine) {
+        val serverConfig = ServerConfig.create(
+            baseUrl = "https://example.com",
+            accessToken = "test-access-token",
+        )
 
-            install(ContentNegotiation) {
-                json(
-                    Json {
-                        ignoreUnknownKeys = true
-                        coerceInputValues = true
-                    },
-                )
-            }
-
-            install(DefaultRequest) {
-                url("https://example.com/")
-            }
-        }
+        configureNetworkClient(serverConfig = serverConfig)
     }
 }

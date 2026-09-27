@@ -2,16 +2,15 @@ package com.amahmouddm.moviemate.data.movies.datasource.network
 
 import com.amahmouddm.moviemate.core.common.result.Outcome
 import com.amahmouddm.moviemate.core.common.result.mapSuccess
+import com.amahmouddm.moviemate.core.common.result.safeCall
 import com.amahmouddm.moviemate.data.movies.datasource.MoviesRemoteDataSource
-import com.amahmouddm.moviemate.data.movies.datasource.network.client.ServerConfig
-import com.amahmouddm.moviemate.data.movies.datasource.network.dto.PopularMoviesResponseDto
+import com.amahmouddm.moviemate.data.movies.datasource.network.dto.MoviesResponseDto
+import com.amahmouddm.moviemate.data.movies.datasource.network.mapper.toDomainError
 import com.amahmouddm.moviemate.data.movies.datasource.network.mapper.toMovie
-import com.amahmouddm.moviemate.data.movies.datasource.network.result.safeApiCall
 import com.amahmouddm.moviemate.data.movies.model.DomainError
 import com.amahmouddm.moviemate.data.movies.model.Movie
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import javax.inject.Inject
 
@@ -19,15 +18,13 @@ internal class KtorMoviesRemoteDataSource @Inject constructor(
     private val httpClient: HttpClient,
 ) : MoviesRemoteDataSource {
 
-    override suspend fun getPopularMovies(
-        serverConfig: ServerConfig,
-    ): Outcome<List<Movie>, DomainError> {
-        return safeApiCall {
+    override suspend fun getPopularMovies(): Outcome<List<Movie>, DomainError> {
+        return safeCall(
+            mapError = { it.toDomainError() }
+        ) {
             httpClient
-                .get("${serverConfig.baseUrl}movie/popular") {
-                    bearerAuth(serverConfig.accessToken)
-                }
-                .body<PopularMoviesResponseDto>()
+                .get("movie/popular")
+                .body<MoviesResponseDto>()
         }
             .mapSuccess { data ->
                 data

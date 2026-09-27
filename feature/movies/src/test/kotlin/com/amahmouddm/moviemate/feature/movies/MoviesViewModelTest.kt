@@ -25,7 +25,7 @@ class MoviesViewModelTest {
     @Test
     fun `initial state is loading`() = runTest {
         coEvery {
-            moviesRepository.getPopularMovies(any())
+            moviesRepository.getPopularMovies()
         } returns Outcome.Success(emptyList())
 
         val viewModel = MoviesViewModel(
@@ -43,7 +43,7 @@ class MoviesViewModelTest {
         val movies = testMovies()
 
         coEvery {
-            moviesRepository.getPopularMovies(any())
+            moviesRepository.getPopularMovies()
         } returns Outcome.Success(movies)
 
         val viewModel = MoviesViewModel(
@@ -63,7 +63,7 @@ class MoviesViewModelTest {
         val domainError = domainErrorTestData.random()
 
         coEvery {
-            moviesRepository.getPopularMovies(any())
+            moviesRepository.getPopularMovies()
         } returns Outcome.Failure(domainError)
 
         val viewModel = MoviesViewModel(

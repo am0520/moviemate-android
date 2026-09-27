@@ -6,5 +6,5 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.compose) apply false
-    id("io.github.takahirom.roborazzi") version "1.73.0" apply false
+    alias(libs.plugins.roborazzi) apply false
 }
