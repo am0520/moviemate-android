@@ -51,8 +51,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.designsystem)
     implementation(projects.data.movies)
-    implementation(libs.androidx.compose.material3)
 
     testImplementation(libs.mockk)
     testImplementation(testFixtures(projects.data.movies))
