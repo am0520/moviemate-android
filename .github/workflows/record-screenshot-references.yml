@@ -5,9 +5,6 @@ run-name: Record screenshots from ${{ github.ref_name }}
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -15,8 +12,8 @@ concurrency:
 jobs:
   record:
     name: Record Roborazzi screenshots
+
     runs-on: ${{ vars.CI_RUNNER }}
-    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -34,9 +31,40 @@ jobs:
       - name: Record screenshots
         run: ./gradlew recordRoborazziDebug
 
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshot-references
+          path: "**/src/test/screenshots/**"
+          if-no-files-found: error
+          retention-days: 1
+
+  accept:
+    name: Accept screenshot references
+
+    needs: record
+
+    runs-on: ${{ vars.CI_RUNNER }}
+
+    permissions:
+      contents: write
+
+    environment:
+      name: screenshot-approval
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download screenshots
+        uses: actions/download-artifact@v8
+        with:
+          name: screenshot-references
+          path: .
+
       - name: Commit screenshots
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          commit_message: "test(screenshot): update reference images"
+          commit_message: "🤖test(screenshot): update reference images"
           file_pattern: "**/src/test/screenshots/**"
           disable_globbing: true
