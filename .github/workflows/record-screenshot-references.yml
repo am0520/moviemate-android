@@ -59,7 +59,7 @@ jobs:
         with:
           name: review-screenshots
           path: review-screenshots/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 1
 
       - name: Upload screenshots for accepting
@@ -67,5 +67,5 @@ jobs:
         with:
           name: screenshot-references
           path: commit-screenshots/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 1
