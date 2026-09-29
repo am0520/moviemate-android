@@ -34,7 +34,7 @@ jobs:
       - name: Collect changed screenshots
         shell: bash
         run: |
-          mkdir -p review-screenshots
+          mkdir -p review-artifact/review-screenshots
           mkdir -p commit-screenshots
 
           git ls-files \
@@ -46,10 +46,9 @@ jobs:
 
             relative="${file#*/src/test/screenshots/}"
 
-            mkdir -p "review-screenshots/$(dirname "$relative")"
-            cp "$file" "review-screenshots/$relative"
+            mkdir -p "review-artifact/review-screenshots/$(dirname "$relative")"
+            cp "$file" "review-artifact/review-screenshots/$relative"
 
-            # Preserve the real repository path for accepting later.
             mkdir -p "commit-screenshots/$(dirname "$file")"
             cp "$file" "commit-screenshots/$file"
           done
@@ -58,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: review-screenshots
-          path: review-screenshots/
+          path: review-artifact/
           if-no-files-found: warn
           retention-days: 1
 

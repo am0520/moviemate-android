@@ -1,0 +1,41 @@
+name: Accept Screenshot References
+
+run-name: Accept screenshots from run ${{ inputs.record_run_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      record_run_id:
+        description: "Run ID of the Record Screenshot References workflow"
+        required: true
+        type: string
+
+jobs:
+  accept:
+    name: Accept screenshot references
+
+    runs-on: ${{ vars.CI_RUNNER }}
+
+    permissions:
+      actions: read
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download recorded screenshots
+        uses: actions/download-artifact@v8
+        with:
+          name: screenshot-references
+          path: .
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.record_run_id }}
+
+      - name: Commit screenshots
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "🤖test(screenshot): update reference images"
+          file_pattern: "**/src/test/screenshots/**"
+          disable_globbing: true
