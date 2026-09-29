@@ -31,40 +31,41 @@ jobs:
       - name: Record screenshots
         run: ./gradlew recordRoborazziDebug
 
-      - name: Upload screenshots
+      - name: Collect changed screenshots
+        shell: bash
+        run: |
+          mkdir -p review-screenshots
+          mkdir -p commit-screenshots
+
+          git ls-files \
+            --modified \
+            --others \
+            --exclude-standard \
+            -- '**/src/test/screenshots/**' |
+          while IFS= read -r file; do
+
+            relative="${file#*/src/test/screenshots/}"
+
+            mkdir -p "review-screenshots/$(dirname "$relative")"
+            cp "$file" "review-screenshots/$relative"
+
+            # Preserve the real repository path for accepting later.
+            mkdir -p "commit-screenshots/$(dirname "$file")"
+            cp "$file" "commit-screenshots/$file"
+          done
+
+      - name: Upload screenshots for review
         uses: actions/upload-artifact@v7
         with:
-          name: screenshot-references
-          path: "**/src/test/screenshots/**"
+          name: review-screenshots
+          path: review-screenshots/
           if-no-files-found: error
           retention-days: 1
 
-  accept:
-    name: Accept screenshot references
-
-    needs: record
-
-    runs-on: ${{ vars.CI_RUNNER }}
-
-    permissions:
-      contents: write
-
-    environment:
-      name: screenshot-approval
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Download screenshots
-        uses: actions/download-artifact@v8
+      - name: Upload screenshots for accepting
+        uses: actions/upload-artifact@v7
         with:
           name: screenshot-references
-          path: .
-
-      - name: Commit screenshots
-        uses: stefanzweifel/git-auto-commit-action@v7
-        with:
-          commit_message: "🤖test(screenshot): update reference images"
-          file_pattern: "**/src/test/screenshots/**"
-          disable_globbing: true
+          path: commit-screenshots/
+          if-no-files-found: error
+          retention-days: 1
